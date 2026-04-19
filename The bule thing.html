@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>The Miku</title>
+
+  <style>
+    body {
+      background-image: url('images/thumb-1920-110576.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 900px;
+      margin: 0 auto;
+      text-align: center; 
+      color: white;
+    }
+
+    img {
+      width: 200px;
+      margin: 10px;
+    }
+
+    iframe {
+      display: block;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+
+<body> 
+  <div class="container">
+    <h1 style="font-size:60px;">The Miku thing</h1>
+
+    <p style="font-size:30px;">
+      Miku dayo Miku dayo <b>Miku dayo Miku dayo</b> Miku dayo Miku dayo Miku dayo
+    </p>
+    <a href="https://www.youtube.com/watch?v=4kEPbLbPvV4" target="_blank">World is mine memorial</a>
+    <br>
+    <button onclick="alert('Miku Miku bitch!')">Click to Miku</button>
+
+    <hr>
+	<button onclick="playNextVideo()">Next Video</button>
+	<div id="videoContainer"></div>
+
+    <hr>
+
+    <img src="images/oaaoaooaoaooaaooaoaoaoaooaooaoooao.gif">
+    <img src="images/hatsune-miku-gif-9.gif">
+    <img src="images/10724.gif">
+    <img src="images/220290.gif">
+
+    <p style="color:skyblue; font-size:30px;">
+      Saud version 1.02
+    </p>
+  </div>
+	
+	  <script>
+      const originalVideos = [
+  "06d8SwcSm_Q",
+  "JJYyeFoiYH4",
+  "widZEAJc0QM",
+  "TNf3GPizM58",
+  "3lrV5txZPho",
+  "Mqps4anhz0Q",
+  "9DT_xSRkF-M",
+  "yn9wMs3ETAo",
+];
+
+let shuffledVideos = [];
+let currentIndex = 0;
+
+function shuffle(array) {
+  let arr = array.slice();
+  for (let i = arr.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// 🔥 Extract video ID from full YouTube link
+function getVideoId(url) {
+  const match = url.match(/v=([^&]+)/);
+  return match ? match[1] : url;
+}
+
+function playNextVideo() {
+  if (currentIndex >= shuffledVideos.length) {
+    shuffledVideos = shuffle(originalVideos);
+    currentIndex = 0;
+  }
+
+  const videoUrl = shuffledVideos[currentIndex];
+  currentIndex++;
+
+  const videoId = getVideoId(videoUrl);
+
+  const iframe = document.createElement("iframe");
+  iframe.width = "900";
+  iframe.height = "520";
+  iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`;
+  iframe.frameBorder = "0";
+  iframe.allow = "autoplay; encrypted-media";
+  iframe.allowFullscreen = true;
+
+  const container = document.getElementById("videoContainer");
+  container.innerHTML = "";
+  container.appendChild(iframe);
+}
+
+window.onload = function () {
+  shuffledVideos = shuffle(originalVideos);
+  playNextVideo();
+};
+    </script>
+
+</body>
+</html>
